@@ -10,42 +10,39 @@ def get_db_connection():
         password="",
         database="id19588020_icu_bvh_paeds"
     )
-def add_patient():
-    st.header("Add Patients")
-    with st.form(key='patient_form'):
-        name = st.text_input("Name")
-        reg = st.number_input("Registration No", min_value=0)
-        weight = st.number_input("Weight (kg)", min_value=0.0)
-        address = st.text_input("Address")
-        age = st.number_input("Age", min_value=0)
-        diagnosis = st.text_input("Diagnosis")
-        duration_days = st.number_input("Duration (days)", min_value=0)
-        gender = st.selectbox("Gender", ["Male", "Female"])
-        remarks = st.text_area("Remarks")
-        added_by = st.text_input("Added By")  # New field
+import streamlit as st
+import mysql.connector
 
-        # Calculate the end date based on duration in days
-        end_date = datetime.now() + timedelta(days=duration_days)
+# Function to connect to the MySQL database
+def get_db_connection():
+    connection = mysql.connector.connect(
+        host=st.secrets["mysql"]["host"],
+        user=st.secrets["mysql"]["user"],
+        password=st.secrets["mysql"]["password"],
+        database=st.secrets["mysql"]["database"]
+    )
+    return connection
 
-        submit_button = st.form_submit_button("Submit")
-        if submit_button:
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            query = '''
-            INSERT INTO tb_patient (P_Name, P_Reg, P_Weight, P_Address, P_Age, Diagnosis, Duration, Gender, Remarks, edited_by)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            '''
-            cursor.execute(query, (name, reg, weight, address, age, diagnosis, end_date, gender, remarks, added_by))
-            conn.commit()
-            conn.close()
-            st.success("Patient added successfully!")
-
-# Fetch patient names from the database
-def fetch_patient_names():
+# Fetch some data from the database
+def fetch_data():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT P_ID, P_Name FROM tb_patient")
-    patients = cursor.fetchall()
+    cursor.execute("SELECT * FROM tb_patient")
+    data = cursor.fetchall()
     conn.close()
-    return patients
+    return data
 
+# Streamlit app
+def main():
+    st.title("Test Database Connection")
+
+    # Fetch and display data
+    data = fetch_data()
+    if data:
+        for row in data:
+            st.write(row)
+    else:
+        st.write("No data found in the tb_patient table.")
+
+if __name__ == "__main__":
+    main()
