@@ -27,7 +27,7 @@ def add_custom_css():
 
         /* Change background color */
         .stApp {
-            background-color: #F0F8FF;
+            background-color: #4a6b8a;
         }
         </style>
     """, unsafe_allow_html=True)
