@@ -181,9 +181,9 @@ def main():
     </style>
     """
     st.markdown(st_image, unsafe_allow_html=True)
-    st.sidebar.title("PediaTrak ")
+    st.sidebar.title("PediaTrak – A Pediatric ICU Data Collection and Monitoring System ")
     option = st.sidebar.radio("Select Page", ["Patient Core", "Vital Track" ,"Lab Track","Medi Track"])
-    st.subheader("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
+    # st.subheader("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
 
     if option == "Patient Core":
         patient()
