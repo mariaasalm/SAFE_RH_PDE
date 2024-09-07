@@ -180,7 +180,7 @@ def main():
     } 
     </style>
     """
-    st.markdown(st_image, unsafe_allow_html=True
+    st.markdown(st_image, unsafe_allow_html=True)
     st.sidebar.title("SAFE-RH Pediatric Module")
     option = st.sidebar.radio("Select Page", ["Patients Module", "Vitals Module" ,"Labs Module","Medicines Module"])
 
