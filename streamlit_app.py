@@ -166,13 +166,13 @@ def plot_patient_data():
 
 def main():
     st.sidebar.title("SAFE-RH Pediatric Module")
-    option = st.sidebar.radio("Select Page", ["Patients", "Vitals" ,"Labs","Medicines"])
+    option = st.sidebar.radio("Select Page", ["Patients Module", "Vitals Module" ,"Labs Module","Medicines Module"])
 
     if option == "Patients Module":
         patient()
-    elif option == "Vitals MOdule":
+    elif option == "Vitals Module":
         vitals()
-    elif option == "Labs":
+    elif option == "Labs Module":
         lt.main()
     elif option == "Medicines Module":
         md.main()
