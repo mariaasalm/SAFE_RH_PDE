@@ -181,20 +181,16 @@ def main():
     </style>
     """
     st.markdown(st_image, unsafe_allow_html=True)
-    # Using Markdown for a more styled header
-    st.sidebar.markdown("""
-        ### Main Menu
-        Select an option below to navigate:
-    """)
-    
-    # Displaying buttons instead of radio buttons
-    if styled_button("Patient Core", "patient_core"):
+    option = st.sidebar.radio("Menu", ["Patient Core", "Vital Track" ,"Lab Track","Medi Track"])
+    st.sidebar.subheader("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
+
+    if option == "Patient Core":
         patient()
-    elif styled_button("Vital Track", "vital_track"):
+    elif option == "Vital Track":
         vitals()
-    elif styled_button("Lab Track", "lab_track"):
+    elif option == "Lab Track":
         lt.main()
-    elif styled_button("Medi Track", "medi_track"):
+    elif option == "Medi Track":
         md.main()
     
   
