@@ -36,14 +36,14 @@ def add_entry( test_name):
 
 # Streamlit app interface
 def main():
-    st.title("Lab Tests Management")
+    # st.title("Lab Tests Management")
 
     # Tabs for multiple sections
     tab1, tab2, tab3 = st.tabs(["Add Lab Test", "View Tests", "Reports"])
 
     # Tab 1: Add Lab Test
     with tab1:
-        st.header("Add Lab Test")
+        st.header("Add New Lab Test")
         
         # Fetch existing lab tests for dropdown display
         # lab_tests = fetch_data()
