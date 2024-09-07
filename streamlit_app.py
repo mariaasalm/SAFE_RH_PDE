@@ -77,7 +77,7 @@ def fetch_patient_names():
 
 
 def add_vitals():
-    st.subheader("Enter Patient Vitals")
+    st.subheader("Patient Vitals Monitoring")
 
     patients = fetch_patient_names()
     patient_names = [name[1] for name in patients]
@@ -118,7 +118,7 @@ def add_vitals():
 
 
 def view_vitals():
-    st.subheader("View Vitals")
+    st.subheader("View Patients Vitals")
     conn = get_db_connection()
     query = "SELECT * FROM tb_pat_vitals"
     df = pd.read_sql(query, conn)
@@ -126,7 +126,7 @@ def view_vitals():
     st.dataframe(df)
 
 def vitals():
-    st.header("Vitals Management System")
+    st.subheader("Vital Tracker: Patirnts Vitals Management System")
     tab1, tab2, tab3 = st.tabs(["Add Vitals","View Vitals","Edit"])
     with tab1:
         add_vitals()
@@ -134,7 +134,7 @@ def vitals():
         view_vitals()
 
 def labs():
-    st.header("Labs Management System")
+    st.subheader("Lab Tracker: Patients Labs Management System")
     tab1, tab2, tab3 = st.tabs(["Add Lab","View Labs","Edit"])
     with tab1:
         lt.add_entry()
@@ -181,8 +181,7 @@ def main():
     </style>
     """
     st.markdown(st_image, unsafe_allow_html=True)
-    st.title("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
-    st.sidebar.title("PediaTrak ")
+       st.sidebar.title("PediaTrak ")
     option = st.sidebar.radio("Select Page", ["Patient Core", "Vital Track" ,"Lab Track","Medi Track"])
 
     if option == "Patient Core":
@@ -193,6 +192,7 @@ def main():
         lt.main()
     elif option == "Medi Track":
         md.main()
+ st.subtitle("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
 
 if __name__ == '__main__':
     main()
