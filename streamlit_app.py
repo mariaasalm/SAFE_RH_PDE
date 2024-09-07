@@ -181,30 +181,30 @@ def main():
     </style>
     """
     st.markdown(st_image, unsafe_allow_html=True)
-# Using Markdown for a more styled header
-st.sidebar.markdown("""
-    ### Main Menu
-    Select an option below to navigate:
-""")
-
-# Displaying buttons instead of radio buttons
-if styled_button("Patient Core", "patient_core"):
-    patient()
-elif styled_button("Vital Track", "vital_track"):
-    vitals()
-elif styled_button("Lab Track", "lab_track"):
-    lt.main()
-elif styled_button("Medi Track", "medi_track"):
-    md.main()
-
-# Add some styling to the sidebar header
-st.sidebar.markdown("""
-    <style>
-    .sidebar .sidebar-content {
-        background: #f0f2f6;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    # Using Markdown for a more styled header
+    st.sidebar.markdown("""
+        ### Main Menu
+        Select an option below to navigate:
+    """)
+    
+    # Displaying buttons instead of radio buttons
+    if styled_button("Patient Core", "patient_core"):
+        patient()
+    elif styled_button("Vital Track", "vital_track"):
+        vitals()
+    elif styled_button("Lab Track", "lab_track"):
+        lt.main()
+    elif styled_button("Medi Track", "medi_track"):
+        md.main()
+    
+    # Add some styling to the sidebar header
+    st.sidebar.markdown("""
+        <style>
+        .sidebar .sidebar-content {
+            background: #f0f2f6;
+        }
+        </style>
+        """, unsafe_allow_html=True)
   
 if __name__ == '__main__':
     main()
