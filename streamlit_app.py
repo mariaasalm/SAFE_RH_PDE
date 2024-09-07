@@ -77,7 +77,7 @@ def fetch_patient_names():
 
 
 def add_vitals():
-    st.title("Enter Patient Vitals")
+    st.subheader("Enter Patient Vitals")
 
     patients = fetch_patient_names()
     patient_names = [name[1] for name in patients]
@@ -118,7 +118,7 @@ def add_vitals():
 
 
 def view_vitals():
-    st.header("View Vitals")
+    st.subheader("View Vitals")
     conn = get_db_connection()
     query = "SELECT * FROM tb_pat_vitals"
     df = pd.read_sql(query, conn)
@@ -143,7 +143,7 @@ def labs():
 
 
 def plot_patient_data():
-    st.header("Patient Data Visualization")
+    st.subheader("Patient Data Visualization")
     conn = get_db_connection()
     query = "SELECT * FROM tb_patient"
     df = pd.read_sql(query, conn)
@@ -168,13 +168,13 @@ def main():
     st.sidebar.title("SAFE-RH Pediatric Module")
     option = st.sidebar.radio("Select Page", ["Patients", "Vitals" ,"Labs","Medicines"])
 
-    if option == "Patients":
+    if option == "Patients Module":
         patient()
-    elif option == "Vitals":
+    elif option == "Vitals MOdule":
         vitals()
     elif option == "Labs":
         lt.main()
-    elif option == "Medicines":
+    elif option == "Medicines Module":
         md.main()
 
 if __name__ == '__main__':
