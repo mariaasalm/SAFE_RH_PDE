@@ -126,7 +126,7 @@ def view_vitals():
     st.dataframe(df)
 
 def vitals():
-    st.subheader("Vital Tracker: Patirnts Vitals Management System")
+    st.subheader("Vital Tracker: Patient Vitals Management System")
     tab1, tab2, tab3 = st.tabs(["Add Vitals","View Vitals","Edit"])
     with tab1:
         add_vitals()
@@ -134,7 +134,7 @@ def vitals():
         view_vitals()
 
 def labs():
-    st.subheader("Lab Tracker: Patients Labs Management System")
+    st.subheader("Lab Tracker: Patient Lab Test Management System")
     tab1, tab2, tab3 = st.tabs(["Add Lab","View Labs","Edit"])
     with tab1:
         lt.add_entry()
@@ -183,15 +183,15 @@ def main():
     st.markdown(st_image, unsafe_allow_html=True)
     st.sidebar.subheader("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
 
-    option = st.sidebar.radio("Menu", ["Patient Core", "Vital Track" ,"Lab Track","Medi Track"])
+    option = st.sidebar.radio("Menu", ["Patient Core", "Vital Tracker" ,"Lab Tracker","Med Tracker"])
 
     if option == "Patient Core":
         patient()
-    elif option == "Vital Track":
+    elif option == "Vital Tracker":
         vitals()
-    elif option == "Lab Track":
+    elif option == "Lab Tracker":
         lt.main()
-    elif option == "Medi Track":
+    elif option == "Med Tracker":
         md.main()
     
   
