@@ -197,14 +197,7 @@ def main():
     elif styled_button("Medi Track", "medi_track"):
         md.main()
     
-    # Add some styling to the sidebar header
-    st.sidebar.markdown("""
-        <style>
-        .sidebar .sidebar-content {
-            background: #f0f2f6;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+  
   
 if __name__ == '__main__':
     main()
