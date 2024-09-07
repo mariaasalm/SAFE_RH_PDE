@@ -8,7 +8,7 @@ from mysql.connector import Error
 def connect_to_database():
     try:
         conn = mysql.connector.connect(
-        host='127.0.0.1',
+        host='taci.com.pk',
         user='u458377734_maria',
         password= 'Mscs2017',
         database= 'u458377734_icu_bvh_paeds'
