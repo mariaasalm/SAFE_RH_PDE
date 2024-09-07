@@ -1,23 +1,31 @@
-import pymysql
+import streamlit as st
+import mysql.connector
+from mysql.connector import Error
 
-db_config = {
-    'host': 'u458377734_icu_bvh_paeds.hostinger.com',
-    'user': 'u458377734_maria',
-    'password': 'Mscs2017',
-    'database': 'u458377734_icu_bvh_paeds'
-}
-
-def test_connection():
-    conn = None
+# Function to connect to the database
+def connect_to_database():
     try:
-        conn = pymysql.connect(**db_config)
-        with conn.cursor() as cursor:
-            cursor.execute("SELECT DATABASE();")
-            db_name = cursor.fetchone()
-            st.write(f"Connected to database: {db_name[0]}")
-        st.success("Successfully connected to the database!")
-    except pymysql.MySQLError as e:
-        st.error(f"Error: {e}")
-    finally:
-        if conn:
-            conn.close()
+        conn = mysql.connector.connect(
+            host='u458377734_icu_bvh_paeds.hostinger.com',
+            user='u458377734_maria',
+            password= 'Mscs2017',
+            database= 'u458377734_icu_bvh_paeds'
+        )
+        if conn.is_connected():
+            return True
+    except Error as e:
+        return False
+
+# Main Streamlit App
+def main():
+    st.title("Database Connection Test")
+
+    # Check database connection
+    if connect_to_database():
+        st.success("Database connected successfully!")
+    else:
+        st.error("Failed to connect to the database.")
+
+if __name__ == '__main__':
+    main()
+
