@@ -1,4 +1,16 @@
-# Function to fetch data from the database
+import streamlit as st
+import mysql.connector
+import pandas as pd
+def create_connection():
+    return mysql.connector.connect(
+        # Replace these with your actual credentials and settings
+        host="localhost",
+        user="root",
+        password="",
+        database="id19588020_icu_bvh_paeds"
+    )
+
+# Fetch all lab tests from the database
 def fetch_data():
     connection = create_connection()
     if connection:
@@ -9,43 +21,86 @@ def fetch_data():
         return rows
     return []
 
-# Function to add a new entry to the database
-def add_entry(lab_id, test_name):
+# Add a new lab test entry to the database
+def add_entry( test_name):
     connection = create_connection()
     if connection:
         cursor = connection.cursor()
         cursor.execute(
-            "INSERT INTO tb_labs (Lab_ID, test_name) VALUES (%s, %s)",
-            (lab_id, test_name)
+            "INSERT INTO tb_labs (test_name) VALUES ( %s)",
+            (test_name)
         )
         connection.commit()
         connection.close()
-        st.success("Entry added successfully!")
+        st.success(f"Lab test '{test_name}' added successfully!")
 
 # Streamlit app interface
 def main():
     st.title("Lab Tests Management")
 
-    # Display existing entries
-    st.subheader("Existing Lab Tests")
-    data = fetch_data()
-    if data:
-        st.write(data)
-    else:
-        st.write("No data available.")
+    # Tabs for multiple sections
+    tab1, tab2, tab3 = st.tabs(["Add Lab Test", "View Tests", "Reports"])
 
-    # Add new entry form
-    st.subheader("Add New Lab Test")
-    with st.form(key='add_entry_form'):
-        lab_id = st.number_input("Lab ID", min_value=1, max_value=1000)
-        test_name = st.text_input("Test Name")
-        submit_button = st.form_submit_button(label='Add Entry')
+    # Tab 1: Add Lab Test
+    with tab1:
+        st.header("Add Lab Test")
         
-        if submit_button:
-            if lab_id and test_name:
-                add_entry(lab_id, test_name)
-            else:
-                st.error("Please provide both Lab ID and Test Name.")
+        # Fetch existing lab tests for dropdown display
+        # lab_tests = fetch_data()
+        # test_names = [test['test_name'] for test in lab_tests]
+        
+        # Form for adding a new lab test
+        with st.form(key='add_entry_form'):
+            # lab_id = st.number_input("Lab ID", min_value=1, max_value=1000)
+            test_name = st.text_input("Test Name")
+            
+            # Show existing tests in dropdown for reference
+            # st.selectbox("Existing Lab Tests", options=test_names, index=0 if test_names else None)
+            
+            submit_button = st.form_submit_button(label='Add Entry')
+            
+            if submit_button:
+                if test_name:
+                    add_entry(test_name)
+                else:
+                    st.error("Please provide both Lab ID and Test Name.")
+
+    # Tab 2: View Lab Tests
+    with tab2:
+        st.subheader("Existing Lab Tests")
+
+        # Fetch existing lab test data
+        data = fetch_data()
+        # Add a search bar to filter results
+        search_query = st.text_input("Search Lab Tests", value="", help="Enter the lab test name or part of it to search.")
+        
+        # Filter the results based on the search query
+        if search_query:
+            filtered_data = [lab for lab in data if search_query.lower() in lab['test_name'].lower()]
+        else:
+            filtered_data = data
+
+        # Display filtered data in a table
+        if filtered_data:
+            df = pd.DataFrame(filtered_data)
+            st.dataframe(df)
+        else:
+            st.write("No test found.")
+
+
+
+
+    # Tab 3: Reports
+    with tab3:
+        st.header("Reports")
+        st.write("This tab displays patient reports and graphs.")
+        # Add charts, graphs, etc.
 
 if __name__ == "__main__":
+    main()
+   
+
+if __name__ == "__main__":
+
+
     main()
