@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import style_css as css
 import plotly as px
-
+import add_labtest as lt
+import add_patients as pt
+import add_med as md
 
 # Adding custom CSS
 css.add_custom_css()
@@ -21,7 +23,7 @@ def get_db_connection():
     )
 
 def add_patient():
-    st.header("Add Patients")
+    st.header("Add New Patient")
     with st.form(key='patient_form'):
         name = st.text_input("Name")
         reg = st.number_input("Registration No", min_value=0)
@@ -49,7 +51,20 @@ def add_patient():
             conn.commit()
             conn.close()
             st.success("Patient added successfully!")
-
+def view_patients():
+    st.header("View Patients")
+    conn = get_db_connection()
+    query = "SELECT * FROM tb_patient"
+    df = pd.read_sql(query, conn)
+    conn.close()
+    st.dataframe(df)
+def patient():
+    st.header("Patients Management System")
+    tab1, tab2, tab3 = st.tabs(["Add Patients","View Patients","Edit"])
+    with tab1:
+        add_patient()
+    with tab2:
+        view_patients()
 # Fetch patient names from the database
 def fetch_patient_names():
     conn = get_db_connection()
@@ -100,13 +115,7 @@ def add_vitals():
             st.success("Vitals added successfully!")
 
 
-def view_patients():
-    st.header("View Patients")
-    conn = get_db_connection()
-    query = "SELECT * FROM tb_patient"
-    df = pd.read_sql(query, conn)
-    conn.close()
-    st.dataframe(df)
+
 
 def view_vitals():
     st.header("View Vitals")
@@ -115,6 +124,23 @@ def view_vitals():
     df = pd.read_sql(query, conn)
     conn.close()
     st.dataframe(df)
+
+def vitals():
+    st.header("Vitals Management System")
+    tab1, tab2, tab3 = st.tabs(["Add Vitals","View Vitals","Edit"])
+    with tab1:
+        add_vitals()
+    with tab2:
+        view_vitals()
+
+def labs():
+    st.header("Labs Management System")
+    tab1, tab2, tab3 = st.tabs(["Add Lab","View Labs","Edit"])
+    with tab1:
+        lt.add_entry()
+    with tab2:
+       lt.fetch_data
+
 
 def plot_patient_data():
     st.header("Patient Data Visualization")
@@ -140,18 +166,19 @@ def plot_patient_data():
 
 def main():
     st.sidebar.title("SAFE-RH Pediatric Module")
-    option = st.sidebar.radio("Select Page", ["Add Patients", "Add Vitals", "View Patients", "View Vitals", "Patient Data Visualization"])
+    option = st.sidebar.radio("Select Page", ["Patients", "Vitals" ,"Labs","Medicines"])
 
-    if option == "Add Patients":
-        add_patient()
-    elif option == "Add Vitals":
-        add_vitals()
-    elif option == "View Patients":
-        view_patients()
-    elif option == "View Vitals":
-        view_vitals()
-    # elif option == "Patient Data Visualization":
-    #     plot_patient_data()
+    if option == "Patients":
+        patient()
+    elif option == "Vitals":
+        vitals()
+    elif option == "Labs":
+        lt.main()
+    elif option == "Medicines":
+        md.main()
 
 if __name__ == '__main__':
     main()
+    # lt.main()
+
+
