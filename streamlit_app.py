@@ -39,7 +39,7 @@ def add_custom_css():
     """, unsafe_allow_html=True)
 
 # Adding custom CSS
-css.add_custom_css()
+add_custom_css()
 # Function to connect to the database
 def get_db_connection():
     return mysql.connector.connect(
