@@ -4,21 +4,92 @@ import mysql.connector
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import pandas as pd
-import style_css as css
-import add_patients as pt
-# import plotly as px
 
+# import plotly as px
+def add_custom_css():
+    st.markdown("""
+        <style>
+        /* Center align the header */
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+
+        /* Customize input fields */
+        input {
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        /* Customize buttons */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+
+        /* Change background color */
+        .stApp {
+            background-color: #F0F8FF;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 # Adding custom CSS
 css.add_custom_css()
 # Function to connect to the database
+def get_db_connection():
+    return mysql.connector.connect(
+        # Replace these with your actual credentials and settings
+
+def add_patient():
+    st.header("Add Patients")
+    with st.form(key='patient_form'):
+        name = st.text_input("Name")
+        reg = st.number_input("Registration No", min_value=0)
+        weight = st.number_input("Weight (kg)", min_value=0.0)
+        address = st.text_input("Address")
+        age = st.number_input("Age", min_value=0)
+        diagnosis = st.text_input("Diagnosis")
+        duration_days = st.number_input("Duration (days)", min_value=0)
+        gender = st.selectbox("Gender", ["Male", "Female"])
+        remarks = st.text_area("Remarks")
+        added_by = st.text_input("Added By")  # New field
+
+        # Calculate the end date based on duration in days
+        end_date = datetime.now() + timedelta(days=duration_days)
+
+        submit_button = st.form_submit_button("Submit")
+        if submit_button:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            query = '''
+            INSERT INTO tb_patient (P_Name, P_Reg, P_Weight, P_Address, P_Age, Diagnosis, Duration, Gender, Remarks, edited_by)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            '''
+            cursor.execute(query, (name, reg, weight, address, age, diagnosis, end_date, gender, remarks, added_by))
+            conn.commit()
+            conn.close()
+            st.success("Patient added successfully!")
+
+# Fetch patient names from the database
+def fetch_patient_names():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT P_ID, P_Name FROM tb_patient")
+    patients = cursor.fetchall()
+    conn.close()
+    return patients
 
 
 
 def add_vitals():
     st.title("Enter Patient Vitals")
 
-    patients = pt.fetch_patient_names()
+    patients = fetch_patient_names()
     patient_names = [name[1] for name in patients]
     patient_ids = [name[0] for name in patients]
 
@@ -42,7 +113,7 @@ def add_vitals():
         submit_button = st.form_submit_button("Submit")
         
         if submit_button:
-            conn = pt.get_db_connection()
+            conn = get_db_connection()
             cursor = conn.cursor()
             query = '''
             INSERT INTO tb_pat_vitals (P_ID, Time, V_Date, HR, RR, Systolic, Diastolic, Temp, SpO2, BSR, Remarks)
@@ -56,7 +127,7 @@ def add_vitals():
 
 def view_patients():
     st.header("View Patients")
-    conn = pt.get_db_connection()
+    conn = get_db_connection()
     query = "SELECT * FROM tb_patient"
     df = pd.read_sql(query, conn)
     conn.close()
@@ -64,7 +135,7 @@ def view_patients():
 
 def view_vitals():
     st.header("View Vitals")
-    conn = pt.get_db_connection()
+    conn = get_db_connection()
     query = "SELECT * FROM tb_pat_vitals"
     df = pd.read_sql(query, conn)
     conn.close()
@@ -72,7 +143,7 @@ def view_vitals():
 
 def plot_patient_data():
     st.header("Patient Data Visualization")
-    conn = pt.get_db_connection()
+    conn = get_db_connection()
     query = "SELECT * FROM tb_patient"
     df = pd.read_sql(query, conn)
     conn.close()
@@ -97,7 +168,7 @@ def main():
     option = st.sidebar.radio("Select Page", ["Add Patients", "Add Vitals", "View Patients", "View Vitals", "Patient Data Visualization"])
 
     if option == "Add Patients":
-        pt.add_patient()
+        add_patient()
     elif option == "Add Vitals":
         add_vitals()
     elif option == "View Patients":
