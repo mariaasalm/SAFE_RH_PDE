@@ -5,10 +5,10 @@ from datetime import datetime, timedelta
 def get_db_connection():
     return mysql.connector.connect(
         # Replace these with your actual credentials and settings
-        host="localhost",
-        user="root",
-        password="",
-        database="id19588020_icu_bvh_paeds"
+        host="id-dci-web1158.main-hosting.eu",
+        user="u458377734_maria",
+        password="Mscs2017",
+        database="u458377734_icu_bvh_paeds"
     )
 import streamlit as st
 import mysql.connector
