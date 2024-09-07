@@ -165,6 +165,22 @@ def plot_patient_data():
     st.plotly_chart(fig)
 
 def main():
+        # add_logo()
+    st.sidebar.image('logo.jpg')
+
+    st_image = """
+    <style>
+    .st-emotion-cache-1v0mbdj {
+        position: relative;
+        top: -10px;
+        bottom: 50px; /* Adjust as needed */
+        left: 0px; /* Adjust as needed */
+        width: 100%; /* Ensure it stays within the sidebar width */
+        padding: 10px; /* Optional: add padding */
+    } 
+    </style>
+    """
+    st.markdown(st_image, unsafe_allow_html=True
     st.sidebar.title("SAFE-RH Pediatric Module")
     option = st.sidebar.radio("Select Page", ["Patients Module", "Vitals Module" ,"Labs Module","Medicines Module"])
 
