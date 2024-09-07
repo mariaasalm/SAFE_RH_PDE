@@ -183,15 +183,15 @@ def main():
     st.markdown(st_image, unsafe_allow_html=True)
     st.title("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
     st.sidebar.title("PediaTrak ")
-    option = st.sidebar.radio("Select Page", ["Patients Module", "Vitals Module" ,"Labs Module","Medicines Module"])
+    option = st.sidebar.radio("Select Page", ["Patient Core", "Vital Track" ,"Lab Track","Medi Track"])
 
-    if option == "Patients Module":
+    if option == "Patient Core":
         patient()
-    elif option == "Vitals Module":
+    elif option == "Vital Track":
         vitals()
-    elif option == "Labs Module":
+    elif option == "Lab Track":
         lt.main()
-    elif option == "Medicines Module":
+    elif option == "Medi Track":
         md.main()
 
 if __name__ == '__main__':
