@@ -5,23 +5,11 @@ from datetime import datetime, timedelta
 def get_db_connection():
     return mysql.connector.connect(
         # Replace these with your actual credentials and settings
-        host="id-dci-web1158.main-hosting.eu",
-        user="u458377734_maria",
-        password="Mscs2017",
-        database="u458377734_icu_bvh_paeds"
+    host="id-dci-web1158.main-hosting.eu",
+    user="u458377734_maria",
+    password="Mscs2017",
+    database="u458377734_icu_bvh_paeds"
     )
-import streamlit as st
-import mysql.connector
-
-# Function to connect to the MySQL database
-def get_db_connection():
-    connection = mysql.connector.connect(
-        host=st.secrets["mysql"]["host"],
-        user=st.secrets["mysql"]["user"],
-        password=st.secrets["mysql"]["password"],
-        database=st.secrets["mysql"]["database"]
-    )
-    return connection
 
 # Fetch some data from the database
 def fetch_data():
