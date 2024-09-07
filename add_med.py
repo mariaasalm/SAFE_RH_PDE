@@ -38,14 +38,14 @@ def add_medicine( med_name):
 
 # Streamlit app interface
 def main():
-    st.title("Medicine Management")
+    # st.title("Medicine Management")
 
     # Tabs for multiple sections
     tab1, tab2, tab3 = st.tabs(["Add Medicine", "View Medicines", "Reports"])
 
     # Tab 1: Add Medicine
     with tab1:
-        st.header("Add Medicine")
+        st.header("Add New Medicine")
 
         # Fetch existing medicines for dropdown display
         medicines = fetch_medicines()
