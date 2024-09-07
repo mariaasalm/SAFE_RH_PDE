@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# import plotly as px
+import plotly as px
 def add_custom_css():
     st.markdown("""
         <style>
@@ -180,8 +180,8 @@ def main():
         view_patients()
     elif option == "View Vitals":
         view_vitals()
-    # elif option == "Patient Data Visualization":
-    #     plot_patient_data()
+    elif option == "Patient Data Visualization":
+        plot_patient_data()
 
 if __name__ == '__main__':
     main()
