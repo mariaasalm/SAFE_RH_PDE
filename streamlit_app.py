@@ -23,7 +23,7 @@ def get_db_connection():
     )
 
 def add_patient():
-    st.header("Add New Patient")
+    st.subheader("Add New Patient")
     with st.form(key='patient_form'):
         name = st.text_input("Name")
         reg = st.number_input("Registration No", min_value=0)
@@ -52,14 +52,14 @@ def add_patient():
             conn.close()
             st.success("Patient added successfully!")
 def view_patients():
-    st.header("View Patients")
+    st.subheader("View Patients")
     conn = get_db_connection()
     query = "SELECT * FROM tb_patient"
     df = pd.read_sql(query, conn)
     conn.close()
     st.dataframe(df)
 def patient():
-    st.header("Patients Management System")
+    st.header("Patient Core: Patients Management System")
     tab1, tab2, tab3 = st.tabs(["Add Patients","View Patients","Edit"])
     with tab1:
         add_patient()
@@ -77,7 +77,7 @@ def fetch_patient_names():
 
 
 def add_vitals():
-    st.subheader("Patient Vitals Monitoring")
+    # st.header("Vital Tracker: Patient Vitals Monitoring")
 
     patients = fetch_patient_names()
     patient_names = [name[1] for name in patients]
@@ -126,7 +126,7 @@ def view_vitals():
     st.dataframe(df)
 
 def vitals():
-    st.subheader("Vital Tracker: Patient Vitals Management System")
+    st.header("Vital Tracker: Patient Vitals Management System")
     tab1, tab2, tab3 = st.tabs(["Add Vitals","View Vitals","Edit"])
     with tab1:
         add_vitals()
@@ -134,7 +134,7 @@ def vitals():
         view_vitals()
 
 def labs():
-    st.subheader("Lab Tracker: Patient Lab Test Management System")
+    st.header("Lab Tracker: Patient Lab Test Management System")
     tab1, tab2, tab3 = st.tabs(["Add Lab","View Labs","Edit"])
     with tab1:
         lt.add_entry()
