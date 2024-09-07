@@ -5,10 +5,11 @@ import pandas as pd
 # Database connection setup
 def create_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="id19588020_icu_bvh_paeds"
+        # Replace these with your actual credentials and settings
+    host="id-dci-web1158.main-hosting.eu",
+    user="u458377734_maria",
+    password="Mscs2017",
+    database="u458377734_icu_bvh_paeds"
     )
 
 # Fetch all medicines from the database
