@@ -192,7 +192,7 @@ def main():
         lt.main()
     elif option == "Medi Track":
         md.main()
- st.subtitle("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
+    st.subtitle("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
 
 if __name__ == '__main__':
     main()
