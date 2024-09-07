@@ -180,8 +180,8 @@ def main():
         view_patients()
     elif option == "View Vitals":
         view_vitals()
-    elif option == "Patient Data Visualization":
-        plot_patient_data()
+    # elif option == "Patient Data Visualization":
+    #     plot_patient_data()
 
 if __name__ == '__main__':
     main()
