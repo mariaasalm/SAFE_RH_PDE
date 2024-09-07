@@ -4,7 +4,7 @@ def add_custom_css():
     st.markdown("""
         <style>
         /* Center align the header */
-        h1 {
+        h2 {
             color: #4CAF50;
             text-align: center;
         }
