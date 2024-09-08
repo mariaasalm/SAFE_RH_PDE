@@ -77,7 +77,7 @@ def fetch_patient_names():
 
 
 def add_vitals():
-    # st.header("Vital Tracker: Patient Vitals Monitoring")
+    # st.header("VitalTracker: Patient Vitals Monitoring")
 
     patients = fetch_patient_names()
     patient_names = [name[1] for name in patients]
@@ -126,7 +126,7 @@ def view_vitals():
     st.dataframe(df)
 
 def vitals():
-    st.header("Vital Tracker: Patient Vitals Management System")
+    st.header("VitalTracker: Patient Vitals Management System")
     tab1, tab2, tab3 = st.tabs(["Add Vitals","View Vitals","Edit"])
     with tab1:
         add_vitals()
@@ -181,17 +181,17 @@ def main():
     </style>
     """
     st.markdown(st_image, unsafe_allow_html=True)
-    st.sidebar.subheader("PediaTrak – A Pediatric ICU Data Collection and Monitoring System")
+    st.sidebar.subheader("PediaTrack – A Pediatric ICU Data Collection and Monitoring System")
 
-    option = st.sidebar.radio("Menu", ["Patient Core", "Vital Tracker" ,"Lab Tracker","Med Tracker"])
+    option = st.sidebar.radio("Menu", ["PatientCore", "VitalTracker" ,"LabTracker","MediTracker"])
 
-    if option == "Patient Core":
+    if option == "PatientCore":
         patient()
-    elif option == "Vital Tracker":
+    elif option == "VitalTracker":
         vitals()
-    elif option == "Lab Tracker":
+    elif option == "LabTracker":
         lt.main()
-    elif option == "Med Tracker":
+    elif option == "MediTracker":
         md.main()
     
   
