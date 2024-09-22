@@ -9,6 +9,7 @@ import plotly as px
 import add_labtest as lt
 import add_patients as pt
 import add_med as md
+import patient_vitals as pv
 
 # Adding custom CSS
 css.add_custom_css()
@@ -76,43 +77,43 @@ def fetch_patient_names():
 
 
 
-def add_vitals():
-    # st.header("VitalTracker: Patient Vitals Monitoring")
+# def add_vitals():
+#     # st.header("VitalTracker: Patient Vitals Monitoring")
 
-    patients = fetch_patient_names()
-    patient_names = [name[1] for name in patients]
-    patient_ids = [name[0] for name in patients]
+#     patients = fetch_patient_names()
+#     patient_names = [name[1] for name in patients]
+#     patient_ids = [name[0] for name in patients]
 
-    # Dropdown to select patient
-    selected_patient = st.selectbox("Select Patient", patient_names)
-    selected_patient_id = patient_ids[patient_names.index(selected_patient)]
+#     # Dropdown to select patient
+#     selected_patient = st.selectbox("Select Patient", patient_names)
+#     selected_patient_id = patient_ids[patient_names.index(selected_patient)]
 
-    # Form for vitals entry
-    with st.form(key='vitals_form'):
-        time = st.time_input("Time")
-        date = st.date_input("Date")
-        hr = st.text_input("Heart Rate (HR)")
-        rr = st.text_input("Respiratory Rate (RR)")
-        systolic = st.text_input("Systolic Blood Pressure")
-        diastolic = st.text_input("Diastolic Blood Pressure")
-        temp = st.text_input("Temperature (Temp)")
-        sp02 = st.text_input("SpO2")
-        bsr = st.text_input("Blood Sugar Level (BSR)")
-        remarks = st.text_area("Remarks")
+#     # Form for vitals entry
+#     with st.form(key='vitals_form'):
+#         time = st.time_input("Time")
+#         date = st.date_input("Date")
+#         hr = st.text_input("Heart Rate (HR)")
+#         rr = st.text_input("Respiratory Rate (RR)")
+#         systolic = st.text_input("Systolic Blood Pressure")
+#         diastolic = st.text_input("Diastolic Blood Pressure")
+#         temp = st.text_input("Temperature (Temp)")
+#         sp02 = st.text_input("SpO2")
+#         bsr = st.text_input("Blood Sugar Level (BSR)")
+#         remarks = st.text_area("Remarks")
         
-        submit_button = st.form_submit_button("Submit")
+#         submit_button = st.form_submit_button("Submit")
         
-        if submit_button:
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            query = '''
-            INSERT INTO tb_pat_vitals (P_ID, Time, V_Date, HR, RR, Systolic, Diastolic, Temp, SpO2, BSR, Remarks)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            '''
-            cursor.execute(query, (selected_patient_id, time, date, hr, rr, systolic, diastolic, temp, sp02, bsr, remarks))
-            conn.commit()
-            conn.close()
-            st.success("Vitals added successfully!")
+#         if submit_button:
+#             conn = get_db_connection()
+#             cursor = conn.cursor()
+#             query = '''
+#             INSERT INTO tb_pat_vitals (P_ID, Time, V_Date, HR, RR, Systolic, Diastolic, Temp, SpO2, BSR, Remarks)
+#             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+#             '''
+#             cursor.execute(query, (selected_patient_id, time, date, hr, rr, systolic, diastolic, temp, sp02, bsr, remarks))
+#             conn.commit()
+#             conn.close()
+#             st.success("Vitals added successfully!")
 
 
 
@@ -129,9 +130,9 @@ def vitals():
     st.header("VitalTracker: Patient Vitals Management System")
     tab1, tab2, tab3 = st.tabs(["Add Vitals","View Vitals","Edit"])
     with tab1:
-        add_vitals()
+        pv.add_vitals_form()
     with tab2:
-        view_vitals()
+        pv.view_vitals()
 
 def labs():
     st.header("Lab Tracker: Patient Lab Test Management System")
