@@ -28,7 +28,7 @@ def add_entry( test_name):
         cursor = connection.cursor()
         cursor.execute(
             "INSERT INTO tb_labs (test_name) VALUES ( %s)",
-            (test_name)
+            (test_name,)
         )
         connection.commit()
         connection.close()
