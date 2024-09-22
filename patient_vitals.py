@@ -42,14 +42,14 @@ def add_vitals_form():
         rr = st.text_input("Respiratory Rate (RR)", value="").strip()
 
         # Blood Pressure (Systolic/Diastolic validation)
-        systolic = st.number_input("Systolic Blood Pressure (BP)", min_value=60, max_value=220, value=120)
-        diastolic = st.number_input("Diastolic Blood Pressure (BP)", min_value=20, max_value=120, value=80)
+        systolic = st.number_input("Systolic Blood Pressure (BP)", min_value=60, max_value=220, value=0)
+        diastolic = st.number_input("Diastolic Blood Pressure (BP)", min_value=20, max_value=120, value=0)
 
         # Temperature
-        temp = st.number_input("Temperature (Temp)", min_value=90.0, max_value=106.0, value=98.6)
+        temp = st.number_input("Temperature (Temp)", min_value=90, max_value=106, value=0)
 
         # SpO2
-        spo2 = st.number_input("Oxygen Saturation (SpO2)", min_value=50, max_value=100, value=98)
+        spo2 = st.number_input("Oxygen Saturation (SpO2)", min_value=50, max_value=100, value=0)
 
         # Blood Sugar Random (BSR)
         bsr = st.text_input("Blood Sugar Random (BSR)", value="").strip()
