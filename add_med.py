@@ -30,7 +30,7 @@ def add_medicine( med_name):
         cursor = connection.cursor()
         cursor.execute(
             "INSERT INTO tb_medicines ( med_name) VALUES ( %s)",
-            ( med_name)
+            ( med_name,)
         )
         connection.commit()
         connection.close()
