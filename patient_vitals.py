@@ -37,25 +37,26 @@ def add_vitals_form():
         # Allow the user to input any time and date within one month ago and current
         time = st.time_input("Time HH:MM:")
         v_date = st.date_input("Date", value=datetime.now().date())
-        # Heart Rate and Respiratory Rate (No decimals allowed)
+    # Heart Rate and Respiratory Rate (No decimals allowed)
         hr = st.text_input("Heart Rate (HR)", value="").strip()
         rr = st.text_input("Respiratory Rate (RR)", value="").strip()
 
         # Blood Pressure (Systolic/Diastolic validation)
-        systolic = st.number_input("Systolic Blood Pressure (BP)", min_value=60, max_value=220, value=0)
-        diastolic = st.number_input("Diastolic Blood Pressure (BP)", min_value=20, max_value=120, value=0)
+        systolic = st.number_input("Systolic Blood Pressure (BP)", min_value=60, max_value=220, value=120)
+        diastolic = st.number_input("Diastolic Blood Pressure (BP)", min_value=20, max_value=120, value=80)
 
         # Temperature
-        temp = st.number_input("Temperature (Temp) in Farhenhiet: 96-105", min_value=90.0, max_value=106.0, value=0)
+        temp = st.number_input("Temperature (Temp)", min_value=90.0, max_value=106.0, value=98.6)
 
         # SpO2
-        spo2 = st.number_input("Oxygen Saturation (SpO2)", min_value=50, max_value=100, value=0)
+        spo2 = st.number_input("Oxygen Saturation (SpO2)", min_value=50, max_value=100, value=98)
 
         # Blood Sugar Random (BSR)
         bsr = st.text_input("Blood Sugar Random (BSR)", value="").strip()
 
         # Remarks
         remarks = st.text_area("Remarks")
+
         submit_button = st.form_submit_button(label="Add Vitals")
 
         # Validation for inputs
