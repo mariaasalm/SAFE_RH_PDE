@@ -26,10 +26,14 @@ def add_patient():
     st.subheader("Add New Patient")
     with st.form(key='patient_form'):
         name = st.text_input("Name")
-        reg = st.number_input("Registration No", min_value=0)
+        reg = st.text_input("Registration No")  
+        
         weight = st.number_input("Weight (kg)", min_value=0.0)
         address = st.text_input("Address")
-        age = st.number_input("Age", min_value=0)
+        
+        # Allow fractional age inputs like 0.5 or 0.3
+        age = st.number_input("Age", min_value=0.0, step=0.01)  
+        
         diagnosis = st.text_input("Diagnosis")
         duration_days = st.number_input("Duration (days)", min_value=0)
         gender = st.selectbox("Gender", ["Male", "Female"])
@@ -38,6 +42,24 @@ def add_patient():
 
         # Calculate the end date based on duration in days
         end_date = datetime.now() + timedelta(days=duration_days)
+
+        submit_button = st.form_submit_button("Submit")
+        if submit_button:
+            conn = con.get_db_connection()
+            cursor = conn.cursor()
+            query = '''
+            INSERT INTO tb_patient (P_Name, P_Reg, P_Weight, P_Address, P_Age, Diagnosis, Duration, Gender, Remarks, edited_by)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            '''
+            cursor.execute(query, (name, reg, weight, address, age, diagnosis, duration_days, gender, remarks, added_by))
+            conn.commit()
+            conn.close()
+            st.success("Patient added successfully!")
+        
+
+
+
+        
 
         submit_button = st.form_submit_button("Submit")
         if submit_button:
