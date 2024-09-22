@@ -32,7 +32,7 @@ def add_patient():
         address = st.text_input("Address")
         
         # Allow fractional age inputs like 0.5 or 0.3
-        age = st.number_input("Age", min_value=0.0, step=0.01)  
+        age = st.number_input("Age in month", min_value=0.0, step=0.01)  
         
         diagnosis = st.text_input("Diagnosis")
         duration_days = st.number_input("Duration (days)", min_value=0)
