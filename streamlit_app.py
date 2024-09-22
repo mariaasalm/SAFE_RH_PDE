@@ -41,7 +41,7 @@ def add_patient():
         added_by = st.text_input("Added By")  # New field
         submit_button = st.form_submit_button("Submit")
         if submit_button:
-            conn = con.get_db_connection()
+            conn = get_db_connection()
             cursor = conn.cursor()
             query = '''
             INSERT INTO tb_patient (P_Name, P_Reg, P_Weight, P_Address, P_Age, Diagnosis, Duration, Gender, Remarks, edited_by)
