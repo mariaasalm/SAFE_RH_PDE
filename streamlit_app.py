@@ -39,10 +39,6 @@ def add_patient():
         gender = st.selectbox("Gender", ["Male", "Female"])
         remarks = st.text_area("Remarks")
         added_by = st.text_input("Added By")  # New field
-
-        # Calculate the end date based on duration in days
-        end_date = datetime.now() + timedelta(days=duration_days)
-
         submit_button = st.form_submit_button("Submit")
         if submit_button:
             conn = con.get_db_connection()
@@ -52,24 +48,6 @@ def add_patient():
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             '''
             cursor.execute(query, (name, reg, weight, address, age, diagnosis, duration_days, gender, remarks, added_by))
-            conn.commit()
-            conn.close()
-            st.success("Patient added successfully!")
-        
-
-
-
-        
-
-        submit_button = st.form_submit_button("Submit")
-        if submit_button:
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            query = '''
-            INSERT INTO tb_patient (P_Name, P_Reg, P_Weight, P_Address, P_Age, Diagnosis, Duration, Gender, Remarks, edited_by)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            '''
-            cursor.execute(query, (name, reg, weight, address, age, diagnosis, end_date, gender, remarks, added_by))
             conn.commit()
             conn.close()
             st.success("Patient added successfully!")
