@@ -46,10 +46,10 @@ def add_vitals_form():
         diastolic = st.number_input("Diastolic Blood Pressure (BP)", min_value=20, max_value=120,value=80)
 
         # Temperature
-        temp = st.text_input("Temperature (Temp)", min_value=90, max_value=106)
+        temp = st.number_input("Temperature (Temp)", min_value=90, max_value=106,value=97)
 
         # SpO2
-        spo2 = st.number_input("Oxygen Saturation (SpO2)", min_value=50, max_value=100)
+        spo2 = st.number_input("Oxygen Saturation (SpO2)", min_value=50, max_value=100,value=97)
 
         # Blood Sugar Random (BSR)
         bsr = st.text_input("Blood Sugar Random (BSR)", value="").strip()
