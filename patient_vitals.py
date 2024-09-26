@@ -35,7 +35,7 @@ def add_vitals_form():
     p_id = patient_dict[patient_name]
     with st.form(key='vitals_form'):
         # Allow the user to input any time and date within one month ago and current
-        time = st.time_input("Time (HH:MM):") if st.selectbox("AM/PM:", ["AM", "PM"]) == "AM" else st.time_input("Time (HH:MM):", datetime.now().replace(hour=(datetime.now().hour + 12) % 24).time())
+        time = st.time_input("Select Time (HH:MM):").strftime("%I:%M %p")        
         v_date = st.date_input("Date", value=datetime.now().date())
     # Heart Rate and Respiratory Rate (No decimals allowed)
         hr = st.text_input("Heart Rate (HR)", value="").strip()
