@@ -42,7 +42,7 @@ def add_vitals_form():
         rr = st.text_input("Respiratory Rate (RR)", value="").strip()
 
         # Blood Pressure (Systolic/Diastolic validation)
-        systolic = st.number_input("Systolic Blood Pressure (BP)", min_value=60, max_value=220,value=120)
+        systolic = st.number_input("Systolic Blood Pressure (BP)", min_value=45, max_value=220,value=120)
         diastolic = st.number_input("Diastolic Blood Pressure (BP)", min_value=20, max_value=120,value=80)
 
         # Temperature
